@@ -1,0 +1,7 @@
+{
+  "watch": ["src", "sql", "config"],
+  "ignore": ["src/**/*.test.ts"],
+  "ext": "ts,sql,env",
+  "exec": "npm run build && npm run start",
+  "legacyWatch": true
+}
