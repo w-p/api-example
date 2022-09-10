@@ -16,7 +16,6 @@ describe("defect", () => {
     });
     expect(response.statusCode).toEqual(OK_RESPONSE_CODE);
     const body = response.json();
-    expect(body.id).toBeTruthy();
-    expect(body.id.length).toBe(36);
+    expect(body).toBeUndefined();
   });
 });

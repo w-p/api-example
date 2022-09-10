@@ -14,6 +14,7 @@ clean:
 
 test:
 	./node_modules/.bin/jest --clearCache
+	-docker rm -f defect-db
 	docker run -it -d \
 		-p 5432:5432 \
 		--name defect-db \
