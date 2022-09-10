@@ -1,10 +1,10 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 // import qs from "qs"; // qs is a query string parsing library
-import { getDB, readSQL } from "@lib/db";
+import { getDB, readSQL } from "@/lib/db";
 import { Defect, DefectSchema } from "@/models/defect";
 
 const DB = getDB();
-const QUERY = readSQL("defect/query.sql");
+const QUERY = readSQL(`${process.env.PWD}/sql/defect/query.sql`);
 
 export async function query(req: FastifyRequest, res: FastifyReply): Promise<void> {
   const results: Defect[] = [];
@@ -15,6 +15,7 @@ export async function query(req: FastifyRequest, res: FastifyReply): Promise<voi
   // example with request body
   const body = req.body as Record<string, unknown>;
   const { after, before, system, code, severity, error } = body;
+
   const parameters = [after, before, system, code, severity, error];
   const response = await DB.query(QUERY, parameters);
 

@@ -1,9 +1,9 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { getDB, readSQL } from "@lib/db";
+import { getDB, readSQL } from "@/lib/db";
 import { Defect, DefectSchema } from "@/models/defect";
 
 const DB = getDB();
-const QUERY = readSQL("defect/all.sql");
+const QUERY = readSQL(`${process.env.PWD}/sql/defect/all.sql`);
 
 export async function get(req: FastifyRequest, res: FastifyReply): Promise<void> {
   const results: Defect[] = [];

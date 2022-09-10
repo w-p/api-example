@@ -1,4 +1,4 @@
-import yup from "yup";
+import * as yup from "yup";
 
 export const DefectSchema = yup.object({
   id: yup.string().required(),

@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 
 const ENV = (process.env.ENV || "local").toLowerCase();
-const CONFIG_PATH = `${__dirname}/${ENV}.app.env`;
+const CONFIG_PATH = `${__dirname}/../../config/${ENV}.app.env`;
 
 export type EnvironmentConfig = {
   env: string;
@@ -18,12 +18,16 @@ export type EnvironmentConfig = {
 
 let config: EnvironmentConfig;
 
-export function loadConfig(): EnvironmentConfig {
-  if (config) {
+export function loadConfig(path?: string, reload = false): EnvironmentConfig {
+  if (config && !reload) {
     return config;
   }
 
-  dotenv.config({ path: CONFIG_PATH });
+  const result = dotenv.config({ path: path || CONFIG_PATH });
+  if (result.error) {
+    throw new Error(`failed to read env file '${path}': ${result.error}`);
+  }
+
   const { HOST, PORT, DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS } = process.env;
 
   config = {
